@@ -38,7 +38,7 @@ Step "Get default device and gateway"
 Done
 
 Step "Add route for the VPN server"
-    ip route add 137.189.32.203 via $GW dev $DEV > /dev/null 2>&1
+    ip route add 137.189.99.189 via $GW dev $DEV > /dev/null 2>&1
 Done
 
 Step "Start IPSec and L2TP services"
@@ -64,7 +64,7 @@ Done
 
 Step "Change default route to ppp0"
     while [[ 1 ]]; do
-        ip route del 137.189.32.203 dev ppp0 > /dev/null 2>&1
+        ip route del 137.189.99.189 dev ppp0 > /dev/null 2>&1
         ip route del default > /dev/null 2>&1
         ip route add default dev ppp0 > /dev/null 2>&1
         if [[ $? == 0 ]]; then
@@ -73,7 +73,7 @@ Step "Change default route to ppp0"
         sleep 1
     done
     sleep 2
-    ip route del 137.189.32.203 dev ppp0 > /dev/null 2>&1
+    ip route del 137.189.99.189 dev ppp0 > /dev/null 2>&1
     echo "nameserver 137.189.192.3" >> /tmp/resolv.conf
     echo "nameserver 137.189.192.6" >> /tmp/resolv.conf
     cat /etc/resolv.conf >> /tmp/resolv.conf

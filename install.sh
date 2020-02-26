@@ -20,26 +20,26 @@ InstallCFGs() {
     Backup /etc/ppp/pap-secrets
 
     cd conf
-    echo "include $STRONGSWAN_PATH/ipsec.d/ee/ee.conf" >> $STRONGSWAN_PATH/ipsec.conf
-    echo "include $STRONGSWAN_PATH/ipsec.d/ee/ee.secrets" >> $STRONGSWAN_PATH/ipsec.secrets
-    mkdir -p $STRONGSWAN_PATH/ipsec.d/ee
-    cp ee.conf $STRONGSWAN_PATH/ipsec.d/ee/ee.conf
-    cp ee.secrets $STRONGSWAN_PATH/ipsec.d/ee/ee.secrets
+    echo "include $STRONGSWAN_PATH/ipsec.d/ie/ie.conf" >> $STRONGSWAN_PATH/ipsec.conf
+    echo "include $STRONGSWAN_PATH/ipsec.d/ie/ie.secrets" >> $STRONGSWAN_PATH/ipsec.secrets
+    mkdir -p $STRONGSWAN_PATH/ipsec.d/ie
+    cp ie.conf $STRONGSWAN_PATH/ipsec.d/ie/ie.conf
+    cp ie.secrets $STRONGSWAN_PATH/ipsec.d/ie/ie.secrets
     cp xl2tpd.conf /etc/xl2tpd/xl2tpd.conf
     cp options /etc/ppp/options
     cp options.xl2tpd /etc/ppp/options.xl2tpd
 }
 
 InstallUserInfo() {
-    echo "$1 vpn.ee.cuhk.edu.hk \"$2\"" >> /etc/ppp/pap-secrets
+    echo "$1 ipsec-vpn.ie.cuhk.edu.hk \"$2\"" >> /etc/ppp/pap-secrets
     echo "name $1" >> /etc/ppp/options.xl2tpd
 }
 
 PostInstall() {
     ChPerm $STRONGSWAN_PATH/ipsec.conf
     ChPerm $STRONGSWAN_PATH/ipsec.secrets 600
-    ChPerm $STRONGSWAN_PATH/ipsec.d/ee/ee.conf
-    ChPerm $STRONGSWAN_PATH/ipsec.d/ee/ee.secrets 600
+    ChPerm $STRONGSWAN_PATH/ipsec.d/ie/ie.conf
+    ChPerm $STRONGSWAN_PATH/ipsec.d/ie/ie.secrets 600
     ChPerm /etc/xl2tpd/xl2tpd.conf
     ChPerm /etc/ppp/pap-secrets 600
     ChPerm /etc/ppp/options
@@ -80,8 +80,8 @@ Step "Install config files"
     InstallCFGs
 Done
 
-Step "Set up EE ID and password"
-    Message "Please enter your EE ID and password."
+Step "Set up IE ID and password"
+    Message "Please enter your IE ID and password."
     Message "Note that for secure reason, the password will not be shown."
     echo ""
     echo -n "ID: "
